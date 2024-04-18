@@ -1,4 +1,4 @@
 import Header from "./Header";
 import Footer from "./Footer";
-
-export { Header, Footer };
+import Form from "./Form";
+export { Header, Footer, Form };

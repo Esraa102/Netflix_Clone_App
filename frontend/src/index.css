@@ -1,3 +1,39 @@
+:root {
+  --gradient: linear-gradient(98.37deg, #f89e00 0.99%, #da2f68 100%);
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .form {
+    @apply bg-slate-950 p-6 rounded-md flex flex-col gap-4;
+  }
+  .field-container {
+    @apply flex flex-col gap-2;
+  }
+  .label {
+    @apply text-lg font-semibold;
+  }
+  .input {
+    @apply px-2 py-[6px] rounded-md text-white bg-slate-900 border-2 border-slate-900 focus:outline-none focus:border-yellow;
+  }
+  .error {
+    @apply text-sm text-red-700 px-2 -my-1 font-semibold;
+  }
+}
+.linear-text-gradient {
+  background: linear-gradient(98.37deg, #f89e00 0.99%, #da2f68 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.linear-bg-gradient {
+  background: linear-gradient(98.37deg, #f89e00 0.99%, #da2f68 100%);
+}
+
+.linear-bg-gradient:hover {
+  background: linear-gradient(98.37deg, #da2f68 0.99%, #f89e00 100%);
+}
