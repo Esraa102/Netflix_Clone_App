@@ -1,13 +1,26 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-
-const Form = ({ isRegister }) => {
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+const Form = ({ isRegister, sendData, isLoading }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [isHidden, setIsHidden] = useState(true);
   const onSubmit = (data) => {
-    console.log(data);
+    if (isRegister) {
+      sendData({
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      });
+    } else {
+      sendData({
+        email: data.email,
+        password: data.password,
+      });
+    }
   };
 
   return (
@@ -72,20 +85,28 @@ const Form = ({ isRegister }) => {
         <label htmlFor="password" className="label">
           Password
         </label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          className={`input ${
-            errors?.password && "border-2 border-red-700 focus:border-red-700"
-          }`}
-          placeholder="Enter your Password"
-          {...register("password", {
-            required: true,
-            minLength: 8,
-            maxLength: 20,
-          })}
-        />
+        <div className="relative w-full">
+          <input
+            type={isHidden ? "password" : "text"}
+            name="password"
+            id="password"
+            className={`input w-full ${
+              errors?.password && "border-2 border-red-700 focus:border-red-700"
+            }`}
+            placeholder="Enter your Password"
+            {...register("password", {
+              required: true,
+              minLength: 8,
+              maxLength: 20,
+            })}
+          />
+          <span
+            onClick={() => setIsHidden((prev) => !prev)}
+            className="absolute top-1/2 -translate-y-1/2 right-2 cursor-pointer hover:text-pink transition"
+          >
+            {isHidden ? <FaEyeSlash size={22} /> : <FaEye size={22} />}
+          </span>
+        </div>
         {errors.password?.type === "required" && (
           <p className="error">Password is required</p>
         )}
@@ -100,9 +121,15 @@ const Form = ({ isRegister }) => {
       </div>
       <button
         type="submit"
-        className="linear-bg-gradient mt-4 transition hover:scale-105 py-2 rounded-md text-lg font-semibold"
+        disabled={isLoading}
+        className={`linear-bg-gradient mt-4 transition hover:scale-105 py-2 rounded-md text-lg font-semibold ${
+          isLoading && "cursor-not-allowed opacity-50 hover:scale-100"
+        }`}
       >
-        {isRegister ? "Create Account" : "Sign In"}
+        {isRegister && !isLoading && "Create Account"}
+        {isRegister && isLoading && "Wait a second..."}
+        {!isRegister && !isLoading && "Sign In"}
+        {!isRegister && isLoading && "Wait a second..."}
       </button>
     </form>
   );

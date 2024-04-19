@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthLayout, Home, RootLayout, SignIn, SignUp } from "./pages";
 import { useSelector } from "react-redux";
+import { Toaster } from "react-hot-toast";
 function App() {
   const { currentUser } = useSelector((state) => state.user);
   return (
@@ -11,7 +12,6 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/sign-in" element={<SignIn />} />
         </Route>
-
         {/* Private Routes */}
         <Route
           element={currentUser ? <RootLayout /> : <Navigate to={"/sign-in"} />}
@@ -19,6 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
         </Route>
       </Routes>
+      <Toaster />
     </section>
   );
 }
