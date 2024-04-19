@@ -3,7 +3,7 @@ import { Footer, Header } from "../../components";
 
 const RootLayout = () => {
   return (
-    <section className="bg-darkBlue text-white">
+    <section className="bg-darkBlue min-h-screen text-white">
       <Header />
       <div>
         <Outlet />

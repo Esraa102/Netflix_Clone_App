@@ -17,6 +17,7 @@ function App() {
           element={currentUser ? <RootLayout /> : <Navigate to={"/sign-in"} />}
         >
           <Route path="/" element={<Home />} />
+          <Route path="/movies" element={<Home />} />
         </Route>
       </Routes>
       <Toaster />
