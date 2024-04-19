@@ -1,7 +1,18 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { AuthLayout, Home, RootLayout, SignIn, SignUp } from "./pages";
+import {
+  AuthLayout,
+  Home,
+  Movies,
+  PageError,
+  Profile,
+  RootLayout,
+  SignIn,
+  SignUp,
+  TvShows,
+} from "./pages";
 import { useSelector } from "react-redux";
 import { Toaster } from "react-hot-toast";
+
 function App() {
   const { currentUser } = useSelector((state) => state.user);
   return (
@@ -17,8 +28,11 @@ function App() {
           element={currentUser ? <RootLayout /> : <Navigate to={"/sign-in"} />}
         >
           <Route path="/" element={<Home />} />
-          <Route path="/movies" element={<Home />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/tv-shows" element={<TvShows />} />
+          <Route path="/profile/:id" element={<Profile />} />
         </Route>
+        <Route path="*" element={<PageError />} />
       </Routes>
       <Toaster />
     </section>
